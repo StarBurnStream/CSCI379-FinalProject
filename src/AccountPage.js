@@ -108,9 +108,14 @@ class AccountPage extends Component {
                       <Panel.Title componentClass="h3">Gender</Panel.Title>
                     </Panel.Heading>
                     <Panel.Body>
-                      <FormGroup controlId="gender">
-                        <FormControl type="text" placeholder="Gender" />
-                      </FormGroup>{' '}
+											<FormGroup controlId="gender">
+												<p>Gender</p>
+												<FormControl componentClass="select" placeholder="Gender">
+													<option defaultSelected value="Prefered not to say">Prefered not to say</option>
+													<option value="Male">Male</option>
+													<option value="Female">Female</option>
+												</FormControl>
+											</FormGroup>
                       <Button>Update</Button>
                     </Panel.Body>
                     </Panel>

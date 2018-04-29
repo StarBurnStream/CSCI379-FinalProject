@@ -1,31 +1,23 @@
 import React, { Component } from 'react';
-import { Navbar, Nav, NavItem, MenuItem, NavDropdown, Button, FormGroup, FormControl, Carousel } from 'react-bootstrap';
+import { Navbar, Nav, NavItem, MenuItem, NavDropdown, Button, FormGroup, FormControl, Carousel, Modal } from 'react-bootstrap';
 import NavBar from "./NavBar";
 import { Route } from 'react-router-dom';
 
 class ItemPage extends Component {
-	function(){
-	  document.getElementById('.carousel-showmanymoveone .item').each(function(){
-	    var itemToClone = document.getElementById(this);
 
-	    for (var i=1;i<6;i++) {
-	      itemToClone = itemToClone.next();
+	constructor(props, context) {
+    super(props, context);
 
-	      // wrap around if at end of item collection
-	      if (!itemToClone.length) {
-	        itemToClone = document.getElementById(this).siblings(':first');
-	      }
+    this.state = {
+      smShow: false,
+      lgShow: false
+    };
+  }
 
-	      // grab item, clone, add marker class, add to collection
-	      itemToClone.children(':first-child').clone()
-	        .addClass("cloneditem-"+(i))
-	        .appendTo(document.getElementById(this));
-	    }
-	  });
-	};
 
 
 	render(){
+		let lgClose = () => this.setState({ lgShow: false });
 	  return (
 		<div>
 
@@ -46,6 +38,13 @@ class ItemPage extends Component {
           <p>
           </p>
           <Button>Buy</Button>
+					<Button
+          bsStyle="primary"
+          onClick={() => this.setState({ lgShow: true })}
+        >
+          Launch large demo modal
+        </Button>
+					<MyLargeModal show={this.state.lgShow} onHide={lgClose} />
 
         </div>
       </div>
@@ -53,6 +52,33 @@ class ItemPage extends Component {
     </div>
 	  )
 	}
+}
+
+class MyLargeModal extends React.Component {
+  render() {
+    return (
+      <Modal
+        {...this.props}
+        bsSize="large"
+        aria-labelledby="contained-modal-title-lg"
+      >
+        <Modal.Header closeButton>
+          <Modal.Title id="contained-modal-title-lg">Modal heading</Modal.Title>
+        </Modal.Header>
+        <Modal.Body>
+          <h4>Wrapped Text</h4>
+          <p>
+            Cras mattis consectetur purus sit amet fermentum. Cras justo odio,
+            dapibus ac facilisis in, egestas eget quam. Morbi leo risus, porta
+            ac consectetur ac, vestibulum at eros.
+          </p>
+        </Modal.Body>
+        <Modal.Footer>
+          <Button onClick={this.props.onHide}>Close</Button>
+        </Modal.Footer>
+      </Modal>
+    );
+  }
 }
 
 export default ItemPage
