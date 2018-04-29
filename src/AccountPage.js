@@ -145,6 +145,7 @@ class Mainpage extends Component {
                   <Tab.Pane eventKey="Buy History">Tab 2 conten</Tab.Pane>
                   <Tab.Pane eventKey="Sell History">Tab 2 content</Tab.Pane>
                   <Tab.Pane eventKey="Pending History">Tab 2 content</Tab.Pane>
+                  <Tab.Pane eventKey="Post Item">Tab 2 content</Tab.Pane>
                 </Tab.Content>
               </Col>
             </Row>
