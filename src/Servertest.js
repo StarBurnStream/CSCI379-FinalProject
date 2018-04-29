@@ -8,7 +8,7 @@ class Servertest extends Component {
 
 	constructor(props){
 		super(props)
-		this.state = {username: null, pwd:null, userid: null, email: null, phonenumber: null, r:null}
+		this.state = {username: "", pwd:"", userid: "", email: "", phonenumber: "", r:""}
 		this.handleClickSignup = this.handleClickSignup.bind(this);
 		this.handleClickUpdate = this.handleClickUpdate.bind(this);
 		this.handleClickSignin = this.handleClickSignin.bind(this);
