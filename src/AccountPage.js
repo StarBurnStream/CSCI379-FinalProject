@@ -90,62 +90,70 @@ class AccountPage extends Component {
                   </Tab.Pane>
 
                   <Tab.Pane eventKey="Account Management">
-                    <Panel bsStyle="primary">
-                    <Panel.Heading>
-                      <Panel.Title componentClass="h3">Screen Name</Panel.Title>
-                    </Panel.Heading>
-                    <Panel.Body>
-                      <FormGroup>
-                        <FormControl type="text" placeholder="New Screen Name" />
-                      </FormGroup>{' '}
-                      <Button>Save</Button>
-                    </Panel.Body>
-                    </Panel>
+
                     <Panel bsStyle="success">
                     <Panel.Heading>
                       <Panel.Title componentClass="h3">Real Name</Panel.Title>
                     </Panel.Heading>
                     <Panel.Body>
-                      <FormGroup>
-          			        <FormControl type="text" placeholder="New Real Name" />
+                      <FormGroup controlId="realnname">
+          			        <FormControl type="text" placeholder="Real Name" />
           			      </FormGroup>{' '}
-                      <Button>Save</Button>
+                      <Button>Update</Button>
                     </Panel.Body>
                     </Panel>
+
                     <Panel bsStyle="info">
                     <Panel.Heading>
                       <Panel.Title componentClass="h3">Gender</Panel.Title>
                     </Panel.Heading>
                     <Panel.Body>
-                      <FormGroup>
-                        <FormControl type="text" placeholder="New Gender" />
+                      <FormGroup controlId="gender">
+                        <FormControl type="text" placeholder="Gender" />
                       </FormGroup>{' '}
-                      <Button>Save</Button>
+                      <Button>Update</Button>
                     </Panel.Body>
                     </Panel>
+
                     <Panel bsStyle="warning">
                     <Panel.Heading>
-                      <Panel.Title componentClass="h3">Photo</Panel.Title>
+                      <Panel.Title componentClass="h3">Email</Panel.Title>
                     </Panel.Heading>
                     <Panel.Body>
-                      <FormGroup>
-                        <FormControl type="text" placeholder="Search" />
+                      <FormGroup  controlId="email">
+                        <FormControl type="text" placeholder="Email" />
                       </FormGroup>{' '}
-                      <Button>Save</Button>
+                      <Button>Update</Button>
                     </Panel.Body>
                     </Panel>
-                    <Panel bsStyle="danger">
+
+										<Panel bsStyle="danger">
+                    <Panel.Heading>
+                      <Panel.Title componentClass="h3">Phone Number</Panel.Title>
+                    </Panel.Heading>
+                    <Panel.Body>
+                      <FormGroup  controlId="phone">
+                        <FormControl type="text" placeholder="Phone Number" />
+                      </FormGroup>{' '}
+                      <Button>Update</Button>
+                    </Panel.Body>
+                    </Panel>
+
+                    <Panel bsStyle="primary">
                     <Panel.Heading>
                       <Panel.Title componentClass="h3">Password</Panel.Title>
                     </Panel.Heading>
                     <Panel.Body>
-                      <FormGroup>
-                        <FormControl placeholder="Search" id="formControlsPassword" label="New Password" type="password"/>
+											<FormGroup controlId="currentpassword">
+												<FormControl placeholder="Original Password" type="password"/>
+											</FormGroup>{' '}
+                      <FormGroup controlId="newpassword1">
+                        <FormControl placeholder="New Password" type="password"/>
                       </FormGroup>{' '}
-                      <FormGroup>
-                        <FormControl placeholder="Search" id="formControlsPassword" label="Confirm New Password" type="password"/>
+                      <FormGroup controlId="newpassword2">
+                        <FormControl placeholder="Confirm New Password" type="password"/>
                       </FormGroup>{' '}
-                      <Button>Save</Button>
+                      <Button>Update</Button>
                     </Panel.Body>
                     </Panel>
                   </Tab.Pane>

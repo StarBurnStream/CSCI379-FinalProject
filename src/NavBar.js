@@ -43,10 +43,7 @@ class NavBar extends Component {
 			    </Nav>
 			    <Nav pullRight>
 			      <NavItem eventKey={1} href="#">
-			        Link Right
-			      </NavItem>
-			      <NavItem eventKey={2} href="#">
-			        Link Right
+			        Account
 			      </NavItem>
 			    </Nav>
 			  </Navbar.Collapse>
@@ -55,7 +52,7 @@ class NavBar extends Component {
 			<Navbar>
 			  <Navbar.Header>
 			    <Navbar.Brand>
-			      <a href="#home">Brand</a>
+			      <a href="#home">Bbay</a>
 			    </Navbar.Brand>
 			    <Navbar.Toggle />
 			  </Navbar.Header>
@@ -64,7 +61,7 @@ class NavBar extends Component {
 			      <FormGroup>
 			        <FormControl type="text" placeholder="Search" />
 			      </FormGroup>{' '}
-			      <Button type="submit">Submit</Button>
+			      <Button type="submit">Search</Button>
 			    </Navbar.Form>
 			  </Navbar.Collapse>
 			</Navbar>
