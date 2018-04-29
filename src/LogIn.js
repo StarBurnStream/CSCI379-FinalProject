@@ -11,7 +11,6 @@ export default class Login extends Component {
     super(props);
     this.state = {username: "", userid: "", email: "", phonenumber: "", r:null, password: ""}
     this.handleClickSignup = this.handleClickSignup.bind(this);
-    this.handleClickUpdate = this.handleClickUpdate.bind(this);
     this.handleClickSignin = this.handleClickSignin.bind(this);
   }
 

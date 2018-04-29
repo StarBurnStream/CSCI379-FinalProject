@@ -13,7 +13,7 @@ class App extends Component {
 
   constructor(props) {
     super(props);
-    this.state = {user:null}
+    this.state = {user:{username:"null",clienthash:"null"}}
     this.handleLogIn = this.handleLogIn.bind(this);
   }
 
@@ -44,7 +44,7 @@ class App extends Component {
         )}/>
 
         <Route exact path='/accountpage' render = {() => (
-            <AccountPage />
+            <AccountPage user={this.state.user}/>
         )}/>
 
 		<Route exact path='/servertest' render = {() => (

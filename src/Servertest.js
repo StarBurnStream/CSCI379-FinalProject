@@ -165,8 +165,8 @@ class Servertest extends Component {
 	}
 
 	handleClickUpdateGender(event){
-		var gender = document.getElementById("phone").value // need modification
-		var url = config.url + "updatephone/" + this.state.user.username + "/" + this.state.user.clientHash
+		var gender = document.getElementById("gender").value // need modification
+		var url = config.url + "updategender/" + this.state.user.username + "/" + this.state.user.clientHash
 		var data = { gender : gender}
 		fetch(url, {
 			method: "POST",
