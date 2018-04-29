@@ -8,7 +8,9 @@ app.use(cors())
 const mongoose = require('mongoose')
 const fs = require('fs')
 //const config = JSON.parse(fs.readFileSync('config.json', 'UTF-8'))
-const config = JSON.parse(fs.readFileSync('/Destiny/Abroad/Study/Sixth Semester/CSCI 379 Web/csci379-finalproject/server/configTest.json', 'UTF-8'))
+//const config = JSON.parse(fs.readFileSync('/Destiny/Abroad/Study/Sixth Semester/CSCI 379 Web/csci379-finalproject/server/configTest.json', 'UTF-8'))
+const config = JSON.parse(fs.readFileSync('/Users/HaleBopp/Desktop/Fullstack/CSCI379-FinalProject/server/configTest.json', 'UTF-8'))
+
 mongoose.connect(config.dburl)
 var db = mongoose.connection
 
@@ -158,7 +160,7 @@ app.get('/user/:username', (req, res) => {
 
 // get a user's random r
 app.get('/userlookup/:username', (req, res) => {
-	
+
   res.json({
       result:'success',
       r:req.userSecret.r
@@ -169,12 +171,12 @@ app.get('/userlookup/:username', (req, res) => {
 app.get('/signin/:username/:clientHash', (req, res) => {
 	UserSecret.find({username: req.params.username}, (err, userSecret)=>{
 		var pwdhash = userSecret[0].passwordhash
-		   
+
 		if (req.params.clientHash === pwdhash){
 		  res.json({
 			  result:'success',
-			  user: req.user 
-			})	
+			  user: req.user
+			})
 		}
 		else{
 			res.json({
@@ -192,7 +194,7 @@ app.put('/signup/:username/:passwordhash/:r', (req, res) => {
       username:req.params.username
       })
   user.save()
-  
+
   var userSecret = UserSecret({
       username:req.params.username,
 	  passwordhash:req.params.passwordhash,
@@ -229,7 +231,7 @@ app.post('/updaterealname/:username/:clientHash', (req, res) => {
 			res.json({
 				result:'success',
 				user: req.user
-			})	
+			})
 		}
 		else{
 			consle.log("Access denied")
@@ -250,7 +252,7 @@ app.post('/updateemail/:username/:clientHash', (req, res) => {
 			res.json({
 				result:'success',
 				user: req.user
-			})	
+			})
 		}
 		else{
 			consle.log("Access denied")
@@ -271,7 +273,7 @@ app.post('/updatephone/:username/:clientHash', (req, res) => {
 			res.json({
 				result:'success',
 				user: req.user
-			})	
+			})
 		}
 		else{
 			consle.log("Access denied")
@@ -292,7 +294,7 @@ app.post('/updategender/:username/:clientHash', (req, res) => {
 			res.json({
 				result:'success',
 				user: req.user
-			})	
+			})
 		}
 		else{
 			consle.log("Access denied")
@@ -311,7 +313,7 @@ app.post('/updatepassword/:username/:clientHash', (req, res) => {
 		req.userSecret.save()
 		res.json({
 			result:'success'
-		})	
+		})
 	}
 	else{
 		consle.log("Access denied")
@@ -367,4 +369,3 @@ app.delete('/item/:itemid', (req, res) => {
 
 
 app.listen(3001, () => console.log('My server listening on port 3001!'))
-
