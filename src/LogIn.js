@@ -49,7 +49,7 @@ export default class Login extends Component {
               .then(result=>{
 				result.user.cilentHash = this.state.passwordhash
 				this.setState({user:result.user}, ()=> {
-					this.props.handleLogIn(this.state.user)
+					this.props.handleUpdateState(this.state.user)
 					})
               })
           });
@@ -75,9 +75,10 @@ export default class Login extends Component {
                   fetch(url)
 					.then(result=>result.json())
 					.then(result=>{
-						result.user.cilentHash = clientHash
-						this.setState({user:result.user}, ()=> {
-							this.props.handleLogIn(this.state.user)
+						var newUser = result.user
+						newUser.clientHash = clientHash
+						this.setState({user:newUser}, ()=> {
+							this.props.handleUpdateState(this.state.user)
 						})
 					})
                 }

@@ -109,7 +109,7 @@ class Servertest extends Component {
 			if (result.result === 'success'){
 				result.user.clientHash = this.state.user.clientHash
 				this.setState({user:result.user}, ()=> {
-					this.props.handleLogIn(this.state.user)
+					this.props.handleUpdateState(this.state.user)
 				})
 			}
 			else{
@@ -132,7 +132,7 @@ class Servertest extends Component {
 			if (result.result === 'success'){
 				result.user.clientHash = this.state.user.clientHash
 				this.setState({user:result.user}, ()=> {
-					this.props.handleLogIn(this.state.user)
+					this.props.handleUpdateState(this.state.user)
 				})
 			}
 			else{
@@ -155,7 +155,7 @@ class Servertest extends Component {
 			if (result.result === 'success'){
 				result.user.clientHash = this.state.user.clientHash
 				this.setState({user:result.user}, ()=> {
-					this.props.handleLogIn(this.state.user)
+					this.props.handleUpdateState(this.state.user)
 				})
 			}
 			else{
@@ -178,7 +178,7 @@ class Servertest extends Component {
 			if (result.result === 'success'){
 				result.user.clientHash = this.state.user.clientHash
 				this.setState({user:result.user}, ()=> {
-					this.props.handleLogIn(this.state.user)
+					this.props.handleUpdateState(this.state.user)
 				})
 			}
 			else{
@@ -207,7 +207,7 @@ class Servertest extends Component {
 					var newUser = this.state.user
 					newUser.clientHash = passwordHash
 					this.setState({user:newUser}, ()=> {
-						this.props.handleLogIn(this.state.user)
+						this.props.handleUpdateState(this.state.user)
 					})
 				}
 				else{

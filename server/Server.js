@@ -235,7 +235,7 @@ app.post('/updaterealname/:username/:clientHash', (req, res) => {
 			})
 		}
 		else{
-			consle.log("Access denied")
+			console.log("Access denied")
 			res.json({
 				result:"Not correctly logged in. Access denied."
 			})

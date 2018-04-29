@@ -14,10 +14,10 @@ class App extends Component {
   constructor(props) {
     super(props);
     this.state = {user:{username:"null",clienthash:"null"}}
-    this.handleLogIn = this.handleLogIn.bind(this);
+    this.handleUpdateState = this.handleUpdateState.bind(this);
   }
 
-  handleLogIn(aUser) {
+  handleUpdateState(aUser) {
     this.setState({user: aUser});
   }
 
@@ -28,7 +28,7 @@ class App extends Component {
         <NavBar />
 
         <Route exact path='/' render = {() => (
-            <LogIn handleLogIn={this.handleLogIn}/>
+            <LogIn handleUpdateState={this.handleUpdateState}/>
         )}/>
 
         <Route exact path='/mainpage' render = {() => (
@@ -44,7 +44,7 @@ class App extends Component {
         )}/>
 
         <Route exact path='/accountpage' render = {() => (
-            <AccountPage user={this.state.user}/>
+            <AccountPage user={this.state.user} handleUpdateState={this.handleUpdateState}/>
         )}/>
 
 		<Route exact path='/servertest' render = {() => (

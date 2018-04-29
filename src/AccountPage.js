@@ -47,7 +47,7 @@ class AccountPage extends Component {
 
 	handleClickUpdateRealName(event){
 		var realName = document.getElementById("realnname").value
-		console.log(realName)
+		console.log(this.state)
 		var url = config.url + "updaterealname/" + this.state.user.username + "/" + this.state.user.clientHash
 		var data = { realname : realName}
 		fetch(url, {
@@ -60,7 +60,7 @@ class AccountPage extends Component {
 			if (result.result === 'success'){
 				result.user.clientHash = this.state.user.clientHash
 				this.setState({user:result.user}, ()=> {
-					this.props.handleLogIn(this.state.user)
+					this.props.handleUpdateState(this.state.user)
 				})
 			}
 			else{
@@ -83,7 +83,7 @@ class AccountPage extends Component {
 			if (result.result === 'success'){
 				result.user.clientHash = this.state.user.clientHash
 				this.setState({user:result.user}, ()=> {
-					this.props.handleLogIn(this.state.user)
+					this.props.handleUpdateState(this.state.user)
 				})
 			}
 			else{
@@ -106,7 +106,7 @@ class AccountPage extends Component {
 			if (result.result === 'success'){
 				result.user.clientHash = this.state.user.clientHash
 				this.setState({user:result.user}, ()=> {
-					this.props.handleLogIn(this.state.user)
+					this.props.handleUpdateState(this.state.user)
 				})
 			}
 			else{
@@ -129,7 +129,7 @@ class AccountPage extends Component {
 			if (result.result === 'success'){
 				result.user.clientHash = this.state.user.clientHash
 				this.setState({user:result.user}, ()=> {
-					this.props.handleLogIn(this.state.user)
+					this.props.handleUpdateState(this.state.user)
 				})
 			}
 			else{
@@ -158,7 +158,7 @@ class AccountPage extends Component {
 					var newUser = this.state.user
 					newUser.clientHash = passwordHash
 					this.setState({user:newUser}, ()=> {
-						this.props.handleLogIn(this.state.user)
+						this.props.handleUpdateState(this.state.user)
 					})
 				}
 				else{
@@ -248,7 +248,7 @@ class AccountPage extends Component {
 											<FormGroup controlId="gender">
 												<p>Gender</p>
 												<FormControl componentClass="select" placeholder="Quality">
-													<option defaultSelected value="Prefered not to say">Prefered not to say</option>
+													<option defaultSelected value="Prefer not to say">Prefer not to say</option>
 													<option value="Male">Male</option>
 													<option value="Female">Female</option>
 												</FormControl>{' '}
