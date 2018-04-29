@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { Navbar, Nav, NavItem, MenuItem, NavDropdown, Button, FormGroup, FormControl, Carousel, Checkbox, Well } from 'react-bootstrap';
-import {Col, Row, Thumbnail, Grid} from 'react-bootstrap';
+import {Col, Row, Thumbnail, Grid, Modal} from 'react-bootstrap';
 import NavBar from "./NavBar";
 import { Route } from 'react-router-dom';
 
@@ -28,9 +28,7 @@ class SearchResult extends Component {
 						<h3>Item Name</h3>
 						<p>Price</p>
 						<p>
-						<Button bsStyle="primary">Detail</Button>
-						<Button bsStyle="default">Watch Later</Button>
-						<Button bsStyle="primary" onClick={() => this.setState({ lgShow: true })}>Launch large demo modal</Button>
+						<Button bsStyle="primary" onClick={() => this.setState({ lgShow: true })}>Detail</Button>
 						<MyLargeModal show={this.state.lgShow} onHide={lgClose} />
 						</p>
 					</Thumbnail>
@@ -41,8 +39,8 @@ class SearchResult extends Component {
 						<h3>Item Name</h3>
 						<p>Price</p>
 						<p>
-						<Button bsStyle="primary">Detail</Button>
-						<Button bsStyle="default">Watch Later</Button>
+						<Button bsStyle="primary" onClick={() => this.setState({ lgShow: true })}>Detail</Button>
+						<MyLargeModal show={this.state.lgShow} onHide={lgClose} />
 						</p>
 					</Thumbnail>
 				</Col>
@@ -52,8 +50,8 @@ class SearchResult extends Component {
 						<h3>Item Name</h3>
 						<p>Price</p>
 						<p>
-						<Button bsStyle="primary">Detail</Button>
-						<Button bsStyle="default">Watch Later</Button>
+						<Button bsStyle="primary" onClick={() => this.setState({ lgShow: true })}>Detail</Button>
+						<MyLargeModal show={this.state.lgShow} onHide={lgClose} />
 						</p>
 					</Thumbnail>
 				</Col>

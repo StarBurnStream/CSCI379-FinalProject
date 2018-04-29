@@ -91,7 +91,7 @@ class AccountPage extends Component {
 			}
 		})
 	}
-	
+
 	handleClickUpdatePhone(event){
 		var phone = document.getElementById("phone").value
 		var url = config.url + "updatephone/" + this.state.user.username + "/" + this.state.user.clientHash
@@ -137,7 +137,7 @@ class AccountPage extends Component {
 			}
 		})
 	}
-	
+
 	handleClickUpdatePassword(event){
 		var newPassword1 = document.getElementById("newpassword1").value
 		var newPassword2 = document.getElementById("newpassword2").value
@@ -170,7 +170,7 @@ class AccountPage extends Component {
 			console.log("new password not match")
 		}
 	}
-	
+
 	render(){
 	  return (
 		<div>
@@ -245,10 +245,16 @@ class AccountPage extends Component {
                       <Panel.Title componentClass="h3">Gender</Panel.Title>
                     </Panel.Heading>
                     <Panel.Body>
-                      <FormGroup controlId="gender">
-                        <FormControl type="text" placeholder="Gender" />
-                      </FormGroup>{' '}
-                      <Button onClick={this.handleClickUpdateGender}>Update</Button>
+											<FormGroup controlId="gender">
+												<p>Gender</p>
+												<FormControl componentClass="select" placeholder="Quality">
+													<option defaultSelected value="Prefered not to say">Prefered not to say</option>
+													<option value="Male">Male</option>
+													<option value="Female">Female</option>
+												</FormControl>{' '}
+												<br></br>
+	                      <Button onClick={this.handleClickUpdateGender}>Update</Button>
+											</FormGroup>
                     </Panel.Body>
                     </Panel>
 

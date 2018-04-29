@@ -23,10 +23,7 @@ class NavBar extends Component {
 			  <Navbar.Collapse>
 			    <Nav>
 			      <NavItem eventKey={1} href="#">
-							<Link to={{
-    							pathname: '/Mainpage',
-    							state: { user: this.state.user }
-  						}} className='links'>
+							<Link to={{pathname: '/mainpage'	}} className='links'>
 									Mainpage
 							</Link>
 			      </NavItem>
@@ -41,11 +38,15 @@ class NavBar extends Component {
 			        <MenuItem eventKey={3.3}>Separated link</MenuItem>
 			      </NavDropdown>
 			    </Nav>
+
 			    <Nav pullRight>
 			      <NavItem eventKey={1} href="#">
+						<Link to={{pathname: '/accountpage',}} className='links'>
 			        Account
+						</Link>
 			      </NavItem>
 			    </Nav>
+
 			  </Navbar.Collapse>
 			</Navbar>
 
