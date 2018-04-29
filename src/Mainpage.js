@@ -1,34 +1,63 @@
 import React, { Component } from 'react';
-import './App.css';
-import { Navbar, Nav, NavItem, MenuItem, NavDropdown } from 'react-bootstrap';
+import { Navbar, Nav, NavItem, MenuItem, NavDropdown, Button, FormGroup, FormControl, Carousel } from 'react-bootstrap';
+import NavBar from "./NavBar";
+import { Route } from 'react-router-dom';
 
 class Mainpage extends Component {
+	function(){
+	  document.getElementById('.carousel-showmanymoveone .item').each(function(){
+	    var itemToClone = document.getElementById(this);
+
+	    for (var i=1;i<6;i++) {
+	      itemToClone = itemToClone.next();
+
+	      // wrap around if at end of item collection
+	      if (!itemToClone.length) {
+	        itemToClone = document.getElementById(this).siblings(':first');
+	      }
+
+	      // grab item, clone, add marker class, add to collection
+	      itemToClone.children(':first-child').clone()
+	        .addClass("cloneditem-"+(i))
+	        .appendTo(document.getElementById(this));
+	    }
+	  });
+	};
+
 
 	render(){
 	  return (
 		<div>
-		<Navbar>
-			<Navbar.Header>
-				<Navbar.Brand>
-					<a href="#home">React-Bootstrap</a>
-				</Navbar.Brand>
-			</Navbar.Header>
-			<Nav>
-				<NavItem eventKey={1} href="#">
-					Link
-				</NavItem>
-				<NavItem eventKey={2} href="#">
-					Link
-				</NavItem>
-				<NavDropdown eventKey={3} title="Dropdown" id="basic-nav-dropdown">
-					<MenuItem eventKey={3.1}>Action</MenuItem>
-					<MenuItem eventKey={3.2}>Another action</MenuItem>
-					<MenuItem eventKey={3.3}>Something else here</MenuItem>
-					<MenuItem divider />
-					<MenuItem eventKey={3.4}>Separated link</MenuItem>
-				</NavDropdown>
-			</Nav>
-			</Navbar>
+			<Route exact path='/' render = {() => (
+					<NavBar />
+			)}/>
+
+			<Carousel>
+			  <Carousel.Item>
+			    <img width={900} height={500} alt="900x500" src="unicorn.jpg" />
+			    <Carousel.Caption>
+			      <h3>First slide label</h3>
+			      <p>Nulla vitae elit libero, a pharetra augue mollis interdum.</p>
+			    </Carousel.Caption>
+			  </Carousel.Item>
+
+				<Carousel.Item>
+			    <img width={900} height={500} alt="900x500" src="unicorn.jpg" />
+			    <Carousel.Caption>
+			      <h3>First slide label</h3>
+			      <p>Nulla vitae elit libero, a pharetra augue mollis interdum.</p>
+			    </Carousel.Caption>
+			  </Carousel.Item>
+
+				<Carousel.Item>
+			    <img width={900} height={500} alt="900x500" src="unicorn.jpg" />
+			    <Carousel.Caption>
+			      <h3>First slide label</h3>
+			      <p>Nulla vitae elit libero, a pharetra augue mollis interdum.</p>
+			    </Carousel.Caption>
+			  </Carousel.Item>
+			</Carousel>;
+
     </div>
 	  )
 	}
