@@ -17,31 +17,36 @@ class SearchResult extends Component {
 						<h3>Item Name</h3>
 						<p>Price</p>
 						<p>
-							<Button bsStyle="primary">Button</Button>&nbsp;
-							<Button bsStyle="default">Button</Button>
+						<Button bsStyle="primary">Detail</Button>
+						<Button bsStyle="default">Watch Later</Button>
 						</p>
 					</Thumbnail>
 				</Col>
+
 				<Col xs={6} md={4}>
-					<Thumbnail src="/thumbnaildiv.png" alt="242x200">
-						<h3>Thumbnail label</h3>
-						<p>Description</p>
+					<Thumbnail src="unicorn.jpg" alt="242x200">
+						<h3>Item Name</h3>
+						<p>Price</p>
 						<p>
-							<Button bsStyle="primary">Button</Button>&nbsp;
-							<Button bsStyle="default">Button</Button>
+						<Button bsStyle="primary">Detail</Button>
+						<Button bsStyle="default">Watch Later</Button>
 						</p>
 					</Thumbnail>
 				</Col>
+
 				<Col xs={6} md={4}>
-					<Thumbnail src="/thumbnaildiv.png" alt="242x200">
-						<h3>Thumbnail label</h3>
-						<p>Description</p>
+					<Thumbnail src="unicorn.jpg" alt="242x200">
+						<h3>Item Name</h3>
+						<p>Price</p>
 						<p>
-							<Button bsStyle="primary">Button</Button>&nbsp;
-							<Button bsStyle="default">Button</Button>
+						<Button bsStyle="primary">Detail</Button>
+						<Button bsStyle="default">Watch Later</Button>
 						</p>
 					</Thumbnail>
 				</Col>
+
+
+
 			</Row>
 		</Grid>
 
