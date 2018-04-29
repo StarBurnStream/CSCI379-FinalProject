@@ -9,7 +9,7 @@ const config = require('./configTest.json');
 export default class Login extends Component {
   constructor(props) {
     super(props);
-    this.state = {user: this.props.user, username: "", userid: "", email: "", phonenumber: "", r:null, password: ""}
+    this.state = {username: "", userid: "", email: "", phonenumber: "", r:null, password: ""}
     this.handleClickSignup = this.handleClickSignup.bind(this);
     this.handleClickUpdate = this.handleClickUpdate.bind(this);
     this.handleClickSignin = this.handleClickSignin.bind(this);
@@ -34,12 +34,10 @@ export default class Login extends Component {
     fetch(url)
       .then(result=>result.json())
       .then(result=>{
-        console.log(result)
         if (result.result === "success"){
           console.log("Username already exist")
         }
         else{
-
           var ranNum =  Math.floor(Math.random()*2**32)
           this.setState({
             username: document.getElementById("username").value,
@@ -50,15 +48,14 @@ export default class Login extends Component {
             fetch(url,{method: "PUT"})
               .then(result=>result.json())
               .then(result=>{
-                console.log(result)
+				result.user.cilentHash = this.state.passwordhash
+				this.setState({user:result.user}, ()=> {
+					this.props.handleLogIn(this.state.user)
+					})
               })
-
           });
-
         }
       })
-
-
   }
 
   handleClickSignin(event){
@@ -75,8 +72,15 @@ export default class Login extends Component {
               .then(result=>{
                 if (result.result === 'success'){
                   console.log('Login Successfully!')
-                  this.state.user = "username in login"
-                  this.props.handleLogIn(this.state.user)
+				  url = config.url + "user/" + document.getElementById("username").value
+                  fetch(url)
+					.then(result=>result.json())
+					.then(result=>{
+						result.user.cilentHash = clientHash
+						this.setState({user:result.user}, ()=> {
+							this.props.handleLogIn(this.state.user)
+						})
+					})
                 }
                 else{
                   console.log('Wrong password!')
@@ -87,29 +91,7 @@ export default class Login extends Component {
           console.log("user not found")
         }
       })
-    this.setState({
-      username: document.getElementById("username").value})
   }
-
-  handleClickUpdate(event){
-    this.setState({
-      email: document.getElementById("email").value,
-      phone: document.getElementById("phonenumber").value
-      }, () => {
-      var url = config.url + "update/" + this.state.username
-      var data = { email: this.state.email,
-             phone: this.state.phone}
-      fetch(url, {
-        method: "POST",
-        body: JSON.stringify(data),
-        headers: new Headers({'Content-Type': 'application/json'
-      })})
-        .then(result=>result.json())
-        .then(result=>{
-          console.log(result)
-        })
-      });
-    }
 
   render() {
     return (

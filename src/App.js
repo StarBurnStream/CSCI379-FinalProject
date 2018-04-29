@@ -13,14 +13,12 @@ class App extends Component {
 
   constructor(props) {
     super(props);
-    this.state = {user:"username app"}
+    this.state = {user:null}
     this.handleLogIn = this.handleLogIn.bind(this);
   }
 
-  handleLogIn(newUser) {
-    console.log("app in handlechange");
-    this.setState({user: newUser});
-    console.log(this.state.user);
+  handleLogIn(aUser) {
+    this.setState({user: aUser});
   }
 
   render() {
@@ -33,8 +31,8 @@ class App extends Component {
             <LogIn handleLogIn={this.handleLogIn}/>
         )}/>
 
-        <Route exact path='/mainpage' state={this.user} render = {() => (
-            <Mainpage />
+        <Route exact path='/mainpage' render = {() => (
+            <Mainpage user={this.state.user}/>
         )}/>
 
         <Route exact path='/searchresult' render = {() => (
