@@ -5,6 +5,7 @@ import LogIn from './LogIn';
 import SearchResult from './SearchResult';
 import ItemPage from './ItemPage';
 import AccountPage from './AccountPage';
+import Servertest from './Servertest';
 import NavBar from './NavBar';
 import { Route } from 'react-router-dom';
 
@@ -32,6 +33,10 @@ class App extends Component {
 
         <Route exact path='/accountpage' render = {() => (
             <AccountPage />
+        )}/>
+		
+		<Route exact path='/servertest' render = {() => (
+            <Servertest />
         )}/>
       </div>
 
