@@ -8,7 +8,7 @@ app.use(cors())
 const mongoose = require('mongoose')
 const fs = require('fs')
 //const config = JSON.parse(fs.readFileSync('config.json', 'UTF-8'))
-const config = JSON.parse(fs.readFileSync('/Users/HaleBopp/Desktop/Fullstack/CSCI379-FinalProject/server/configTest.json', 'UTF-8'))
+const config = JSON.parse(fs.readFileSync('/Destiny/Abroad/Study/Sixth Semester/CSCI 379 Web/csci379-finalproject/server/configTest.json', 'UTF-8'))
 mongoose.connect(config.dburl)
 var db = mongoose.connection
 
@@ -23,7 +23,7 @@ var userSchema = mongoose.Schema({
   sold: [String],
   pending: [String],
   phone: String,
-  watchlist: [String],
+  watchlist: [String]
 })
 // bind schema to the mongodb collection 'User'
 var User = mongoose.model('User', userSchema)
@@ -131,19 +131,15 @@ app.get('/user/:username', userParser)
 app.get('/userlookup/:username', userSecretParser)
 app.get('/signin/:username/:clientHash', userParser)
 app.delete('/user/:username', userParser)
-app.post('/update/:username', userParser)
+app.post('/updaterealname/:username/:clientHash', userParser)
+app.post('/updateemail/:username/:clientHash', userParser)
+app.post('/updategender/:username/:clientHash', userParser)
+app.post('/updatephone/:username/:clientHash', userParser)
+app.post('/updatepassword/:username/:clientHash', userSecretParser)
 
 app.get('/item/:itemid', itemParser)
 app.delete('/item/:itemid', itemParser)
 app.post('/item/:itemid', itemParser)
-
-
-// show all items
-app.get('/item', (req, res) => {
-  Item.find().then(items => {
-      res.json(items)
-    })
-})
 
 // show all users
 app.get('/user', (req, res) => {
@@ -152,14 +148,15 @@ app.get('/user', (req, res) => {
     })
 })
 
-// route parameters are prefixed with a :
-app.get('/item/:itemid', (req, res) => {
+// get a user with username
+app.get('/user/:username', (req, res) => {
   res.json({
       result:'success',
-      item: req.item
+      user: req.user
     })
 })
 
+// get a user's random r
 app.get('/userlookup/:username', (req, res) => {
 	
   res.json({
@@ -168,15 +165,15 @@ app.get('/userlookup/:username', (req, res) => {
     })
 })
 
+// sign in
 app.get('/signin/:username/:clientHash', (req, res) => {
-	
 	UserSecret.find({username: req.params.username}, (err, userSecret)=>{
 		var pwdhash = userSecret[0].passwordhash
 		   
 		if (req.params.clientHash === pwdhash){
 		  res.json({
 			  result:'success',
-			  user: req.user //need to remove passwordhash from this object or create a new document for secret info of users
+			  user: req.user 
 			})	
 		}
 		else{
@@ -187,9 +184,7 @@ app.get('/signin/:username/:clientHash', (req, res) => {
 	})
 })
 
-// place an order, deal with toppincs later
-// if order already exists, overwrite
-// Does not use pizzaParser middleware!
+// sign up
 app.put('/signup/:username/:passwordhash/:r', (req, res) => {
   console.log("Create a user: ", req.params.username)
 
@@ -211,6 +206,139 @@ app.put('/signup/:username/:passwordhash/:r', (req, res) => {
   })
 })
 
+app.delete('/user/:userid', (req, res) => {
+  console.log("Delete order for", req.user)
+
+  User.remove({_id:req.user._id}, err=>{
+    if (err) {
+      res.json({result:"error", message:err})
+    }else{
+      res.json({result:"success"})
+    }
+  })
+})
+
+// Update user information or change password
+app.post('/updaterealname/:username/:clientHash', (req, res) => {
+  	UserSecret.find({username: req.params.username}, (err, userSecret)=>{
+		var pwdhash = userSecret[0].passwordhash
+		if (req.params.clientHash === pwdhash){
+			console.log("Access permitted")
+			req.user.name = req.body.realname
+			req.user.save()
+			res.json({
+				result:'success',
+				user: req.user
+			})	
+		}
+		else{
+			consle.log("Access denied")
+			res.json({
+				result:"Not correctly logged in. Access denied."
+			})
+		}
+	})
+})
+
+app.post('/updateemail/:username/:clientHash', (req, res) => {
+  	UserSecret.find({username: req.params.username}, (err, userSecret)=>{
+		var pwdhash = userSecret[0].passwordhash
+		if (req.params.clientHash === pwdhash){
+			console.log("Access permitted")
+			req.user.email = req.body.email
+			req.user.save()
+			res.json({
+				result:'success',
+				user: req.user
+			})	
+		}
+		else{
+			consle.log("Access denied")
+			res.json({
+				result:"Not correctly logged in. Access denied."
+			})
+		}
+	})
+})
+
+app.post('/updatephone/:username/:clientHash', (req, res) => {
+  	UserSecret.find({username: req.params.username}, (err, userSecret)=>{
+		var pwdhash = userSecret[0].passwordhash
+		if (req.params.clientHash === pwdhash){
+			console.log("Access permitted")
+			req.user.phone = req.body.phone
+			req.user.save()
+			res.json({
+				result:'success',
+				user: req.user
+			})	
+		}
+		else{
+			consle.log("Access denied")
+			res.json({
+				result:"Not correctly logged in. Access denied."
+			})
+		}
+	})
+})
+
+app.post('/updategender/:username/:clientHash', (req, res) => {
+  	UserSecret.find({username: req.params.username}, (err, userSecret)=>{
+		var pwdhash = userSecret[0].passwordhash
+		if (req.params.clientHash === pwdhash){
+			console.log("Access permitted")
+			req.user.gender = req.body.gender
+			req.user.save()
+			res.json({
+				result:'success',
+				user: req.user
+			})	
+		}
+		else{
+			consle.log("Access denied")
+			res.json({
+				result:"Not correctly logged in. Access denied."
+			})
+		}
+	})
+})
+
+app.post('/updatepassword/:username/:clientHash', (req, res) => {
+
+	if (req.params.clientHash === req.userSecret.passwordhash){
+		console.log("Access permitted")
+		req.userSecret.passwordhash = req.body.passwordhash
+		req.userSecret.save()
+		res.json({
+			result:'success'
+		})	
+	}
+	else{
+		consle.log("Access denied")
+		res.json({
+			result:"Not correctly logged in. Access denied."
+		})
+	}
+
+})
+
+app.post('/updatepassword/:username/:clientHash', userSecretParser)
+
+// show all items
+app.get('/item', (req, res) => {
+  Item.find().then(items => {
+      res.json(items)
+    })
+})
+
+// get an item with id
+app.get('/item/:itemid', (req, res) => {
+  res.json({
+      result:'success',
+      item: req.item
+    })
+})
+
 app.put('/item/:title', (req, res) => {
   console.log("Create an item: ", req.params.title)
 
@@ -222,18 +350,6 @@ app.put('/item/:title', (req, res) => {
   res.json({   // echo the order back (which now has an order number)
     result: 'success',
     item: item
-  })
-})
-
-app.delete('/user/:userid', (req, res) => {
-  console.log("Delete order for", req.user)
-
-  User.remove({_id:req.user._id}, err=>{
-    if (err) {
-      res.json({result:"error", message:err})
-    }else{
-      res.json({result:"success"})
-    }
   })
 })
 
@@ -249,28 +365,6 @@ app.delete('/item/:itemid', (req, res) => {
   })
 })
 
-// assume post is a JSON array of topping strings.
-// like ["pepperoni", "extra cheese" ,"pickles"]
-app.post('/update/:username', (req, res) => {
-
-  // push new toppings array to toppings array
-  // ... is the ES6 spread operator like *args in python
-  // don't forget to save it back to the database!
-  req.user.email = req.body.email
-  req.user.phone = req.body.phone
-  req.user.save()
-  res.json({   // echo the order back (which now has an order number)
-    result: 'success',
-    user: req.user
-  })
-})
 
 app.listen(3001, () => console.log('My server listening on port 3001!'))
 
-//how do I have two data sheets.
-//how do I use post to change values.
-//should I use pizzaorder stuff(29) or 33 stuff?
-//how to run that on EC2, do port already open for listen? screen, node server.js
-//how do I find a user's id using username/email or current user?
-//how to generate and keep track of an id I designed
-//how to store the id?
