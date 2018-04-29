@@ -1,26 +1,13 @@
 import React, { Component } from 'react';
 import { Navbar, Nav, NavItem, MenuItem, NavDropdown, Button, FormGroup, FormControl, Carousel } from 'react-bootstrap';
+import {Link} from 'react-router-dom';
 
 class NavBar extends Component {
-	function(){
-	  document.getElementById('.carousel-showmanymoveone .item').each(function(){
-	    var itemToClone = document.getElementById(this);
 
-	    for (var i=1;i<6;i++) {
-	      itemToClone = itemToClone.next();
-
-	      // wrap around if at end of item collection
-	      if (!itemToClone.length) {
-	        itemToClone = document.getElementById(this).siblings(':first');
-	      }
-
-	      // grab item, clone, add marker class, add to collection
-	      itemToClone.children(':first-child').clone()
-	        .addClass("cloneditem-"+(i))
-	        .appendTo(document.getElementById(this));
-	    }
-	  });
-	};
+	constructor(props) {
+    super(props);
+    this.state = {user: "username in NavBar"}
+  }
 
 
 	render(){
@@ -36,7 +23,12 @@ class NavBar extends Component {
 			  <Navbar.Collapse>
 			    <Nav>
 			      <NavItem eventKey={1} href="#">
-			        Link
+							<Link to={{
+    							pathname: '/Mainpage',
+    							state: { user: this.state.user }
+  						}} className='links'>
+									Mainpage
+							</Link>
 			      </NavItem>
 			      <NavItem eventKey={2} href="#">
 			        Link

@@ -3,3 +3,27 @@ body {
   padding: 0;
   font-family: sans-serif;
 }
+
+.links{
+	color: white;
+}
+
+.links:hover{
+	color:white;
+	text-decoration: none;
+}
+
+.links:link{
+	color:white;
+	text-decoration: none;
+}
+
+.links:active{
+	color:white;
+	text-decoration: none;
+}
+
+.links:visited{
+	color:white;
+	text-decoration: none;
+}

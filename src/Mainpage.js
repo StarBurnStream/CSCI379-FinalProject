@@ -4,6 +4,12 @@ import NavBar from "./NavBar";
 import { Route } from 'react-router-dom';
 
 class Mainpage extends Component {
+
+	constructor(props) {
+		super(props);
+		this.state = {user: this.props.user}
+	}
+	
 	function(){
 	  document.getElementById('.carousel-showmanymoveone .item').each(function(){
 	    var itemToClone = document.getElementById(this);
@@ -26,6 +32,7 @@ class Mainpage extends Component {
 
 
 	render(){
+		console.log(this.state.user)
 	  return (
 		<div>
 

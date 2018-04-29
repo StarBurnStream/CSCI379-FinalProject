@@ -10,16 +10,30 @@ import NavBar from './NavBar';
 import { Route } from 'react-router-dom';
 
 class App extends Component {
+
+  constructor(props) {
+    super(props);
+    this.state = {user:"username app"}
+    this.handleLogIn = this.handleLogIn.bind(this);
+  }
+
+  handleLogIn(newUser) {
+    console.log("app in handlechange");
+    this.setState({user: newUser});
+    console.log(this.state.user);
+  }
+
   render() {
     return (
       <div>
+
         <NavBar />
 
         <Route exact path='/' render = {() => (
-            <LogIn />
+            <LogIn handleLogIn={this.handleLogIn}/>
         )}/>
 
-        <Route exact path='/mainpage' render = {() => (
+        <Route exact path='/mainpage' state={this.user} render = {() => (
             <Mainpage />
         )}/>
 
@@ -34,7 +48,7 @@ class App extends Component {
         <Route exact path='/accountpage' render = {() => (
             <AccountPage />
         )}/>
-		
+
 		<Route exact path='/servertest' render = {() => (
             <Servertest />
         )}/>
