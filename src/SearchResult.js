@@ -8,9 +8,6 @@ class SearchResult extends Component {
 	render(){
 	  return (
 		<div>
-		<Route exact path='/' render = {() => (
-				<NavBar />
-		)}/>
 
 			<div>
 			  <Well bsSize="large">

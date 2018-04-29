@@ -29,9 +29,7 @@ class Mainpage extends Component {
 	render(){
 	  return (
 		<div>
-			<Route exact path='/' render = {() => (
-					<NavBar />
-			)}/>
+
       <div>
         <div>
           <img width={100} height={100} display='block' src="unicorn.jpg" />

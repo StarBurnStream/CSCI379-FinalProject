@@ -28,9 +28,6 @@ class ItemPage extends Component {
 	render(){
 	  return (
 		<div>
-      <Route exact path='/' render = {() => (
-          <NavBar />
-      )}/>
 
       <div>
         <div>

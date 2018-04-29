@@ -28,9 +28,6 @@ class Mainpage extends Component {
 	render(){
 	  return (
 		<div>
-			<Route exact path='/' render = {() => (
-					<NavBar />
-			)}/>
 
 			<Carousel>
 			  <Carousel.Item>

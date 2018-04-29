@@ -58,7 +58,7 @@ class NavBar extends Component {
 			      </NavItem>
 			    </Nav>
 			  </Navbar.Collapse>
-			</Navbar>;
+			</Navbar>
 
 			<Navbar>
 			  <Navbar.Header>
@@ -75,7 +75,7 @@ class NavBar extends Component {
 			      <Button type="submit">Submit</Button>
 			    </Navbar.Form>
 			  </Navbar.Collapse>
-			</Navbar>;
+			</Navbar>
 
     </div>
 	  )
