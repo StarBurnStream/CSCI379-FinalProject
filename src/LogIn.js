@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { Button, FormGroup, FormControl, ControlLabel } from "react-bootstrap";
+import { Button, FormGroup, FormControl, ControlLabel, Popover, ButtonToolbar, Overlay } from "react-bootstrap";
 import "./LogIn.css";
 import "./index.css"
 import sha256 from 'sha256';
@@ -7,9 +7,9 @@ import sha256 from 'sha256';
 const config = require('./configTest.json');
 
 export default class Login extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {username: "", userid: "", email: "", phonenumber: "", r:null, password: ""}
+  constructor(props, context) {
+    super(props, context);
+    this.state = {username: "", userid: "", email: "", phonenumber: "", r:null, password: "", signupshow: false, signinshow:false}
     this.handleClickSignup = this.handleClickSignup.bind(this);
     this.handleClickSignin = this.handleClickSignin.bind(this);
   }
@@ -35,8 +35,10 @@ export default class Login extends Component {
       .then(result=>{
         if (result.result === "success"){
           console.log("Username already exist")
+          this.setState({target: document.getElementById("signupButton"), show: true});
         }
         else{
+          this.setState({target: document.getElementById("signupButton"), show: false});
           var ranNum =  Math.floor(Math.random()*2**32)
           this.setState({
             username: document.getElementById("username").value,
@@ -64,6 +66,7 @@ export default class Login extends Component {
       .then(result=>{
         console.log(result)
         if (result.result === "success"){
+          this.setState({target: document.getElementById("signinButton"), show:false});
             var clientHash = sha256(document.getElementById("password").value + result.r)
             var url = config.url + "signin/" + document.getElementById("username").value + "/" + clientHash
             fetch(url)
@@ -84,11 +87,13 @@ export default class Login extends Component {
                 }
                 else{
                   console.log('Wrong password!')
+                  this.setState({target: document.getElementById("signinButton"), show: true});
                 }
               })
         }
         else{
           console.log("user not found")
+          this.setState({target: document.getElementById("signinButton"), show: true});
         }
       })
   }
@@ -115,25 +120,40 @@ export default class Login extends Component {
             />
           </FormGroup>
 
-          <Button
-            block
-            bsSize="large"
-            disabled={!this.validateForm()}
-            type="submit"
-            onClick={this.handleClickSignin}
-          >
-            Login
-          </Button>
+          <ButtonToolbar>
+            <Button id="signupButton" block bsSize="large" disabled={!this.validateForm()} type="submit" onClick={this.handleClickSignup}>
+              Sign Up
+            </Button>
+            <Overlay
+              show={this.state.show}
+              target={this.state.target}
+              placement="right"
+              container={this}
+              containerPadding={20}
+            >
+              <Popover>
+                <strong>User already exists!</strong>
+              </Popover>
+            </Overlay>
+          </ButtonToolbar>
 
-          <Button
-            block
-            bsSize="large"
-            disabled={!this.validateForm()}
-            type="submit"
-            onClick={this.handleClickSignup}
-          >
-            Sign Up
-          </Button>
+          <ButtonToolbar>
+            <Button id="signinButton" block bsSize="large" disabled={!this.validateForm()} type="submit" onClick={this.handleClickSignin}>
+              Login
+            </Button>
+            <Overlay
+              show={this.state.show}
+              target={this.state.target}
+              placement="right"
+              container={this}
+              containerPadding={20}
+            >
+              <Popover>
+                <strong>Wrong username or password!</strong>
+              </Popover>
+            </Overlay>
+          </ButtonToolbar>
+
         </form>
       </div>
     );
