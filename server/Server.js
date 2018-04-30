@@ -52,7 +52,7 @@ var itemSchema = mongoose.Schema({
   description: String,
   trademethod: String
 })
-
+itemSchema.index({title: 'text'})
 
 // bind schema to the mongodb collection 'Item'
 var Item = mongoose.model('Item', itemSchema)
@@ -140,7 +140,7 @@ app.post('/updategender/:username/:clientHash', userParser)
 app.post('/updatephone/:username/:clientHash', userParser)
 app.post('/updatepassword/:username/:clientHash', userSecretParser)
 
-app.get('/item/:itemid', itemParser)
+//app.get('/item/:itemid', itemParser)
 app.delete('/item/:itemid', itemParser)
 app.post('/item/:itemid', itemParser)
 
@@ -329,6 +329,13 @@ app.post('/updatepassword/:username/:clientHash', userSecretParser)
 // show all items
 app.get('/item', (req, res) => {
   Item.find().then(items => {
+      res.json(items)
+    })
+})
+
+// search by keyword
+app.get('/itemsearch/:keyword', (req, res) => {
+  Item.find({$text: {$search: req.params.keyword}}).then(items => {
       res.json(items)
     })
 })
