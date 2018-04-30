@@ -184,6 +184,7 @@ class AccountPage extends Component {
 		var description = document.getElementById("description").value
 		var condition = document.getElementById("condition").value
 		var trademethod = document.getElementById("trademethod").value
+		console.log(this.state.user)
 		var url = config.url + 'item/' + this.state.user.username + "/" + this.state.user.clientHash
 		var data = { 
 			title: title,
@@ -200,6 +201,7 @@ class AccountPage extends Component {
 		.then(result=>result.json())
 		.then(result=>{
 			if (result.result === 'success'){
+				result.user.clientHash = this.state.user.clientHash
 				this.setState({user:result.user}, ()=> {
 					this.props.handleUpdateState(this.state.user)
 				})

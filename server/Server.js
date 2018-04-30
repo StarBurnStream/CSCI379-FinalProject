@@ -8,8 +8,8 @@ app.use(cors())
 const mongoose = require('mongoose')
 const fs = require('fs')
 //const config = JSON.parse(fs.readFileSync('config.json', 'UTF-8'))
-//const config = JSON.parse(fs.readFileSync('/Destiny/Abroad/Study/Sixth Semester/CSCI 379 Web/csci379-finalproject/server/configTest.json', 'UTF-8'))
-const config = JSON.parse(fs.readFileSync('/Users/HaleBopp/Desktop/Fullstack/CSCI379-FinalProject/server/configTest.json', 'UTF-8'))
+const config = JSON.parse(fs.readFileSync('/Destiny/Abroad/Study/Sixth Semester/CSCI 379 Web/csci379-finalproject/server/configTest.json', 'UTF-8'))
+//const config = JSON.parse(fs.readFileSync('/Users/HaleBopp/Desktop/Fullstack/CSCI379-FinalProject/server/configTest.json', 'UTF-8'))
 
 mongoose.connect(config.dburl)
 var db = mongoose.connection
@@ -367,15 +367,17 @@ app.put('/item/:username/:clientHash', (req, res) => {
 					var user = users[0]
 					user.selling.push(item._id)
 					user.save()
+					
+					res.json({
+					result: 'success',
+					user: user
+					})
 				})
 				
-				res.json({
-					result: 'success',
-					item: item
-				})
+				
 			}
 			else{
-				consolele.log("Access denied")
+				console.log("Access denied")
 				res.json({
 					result:"Not correctly logged in. Access denied."
 				})
