@@ -61,12 +61,10 @@ class SearchResult extends Component {
 	}
 
 	componentDidUpdate(){
-		console.log("update")
 		var url = config.url + "itemsearch/" + keyword
 		fetch(url)
 			.then(result => result.json())
 			.then(result => {
-				console.log(result)
 				if (result.length === 0) {
 					var html = "<p>No item found!</p>"
 					document.getElementById("insertbox").innerHTML = html
@@ -74,30 +72,37 @@ class SearchResult extends Component {
 				else{
 					document.getElementById("insertbox").innerHTML = ""
 					var items = result
-					var newHTML = ""
 					for ( var j=0;j<items.length;j++){
-						var item = items[j]
-						newHTML += "<Col xs={6} md={4}>"
-					+  "<div class='card' style='width:400px'>"
-					+	"<div class='card-body'>"
-					+	  "<h2 class='card-title'>" + item.title + "</h2>"
-					+	  "<h4 class='card-title'>Price: $" + item.price + "<br/>Seller: " + item.sellername + "<br/>Email: " + this.state.user.email + "<br/>Phone: " + this.state.user.phone 
-					+ "<br/>Trade Method: " + item.trademethod + "</h4>"
-					+	  "<p class='card-text'>Description: " + item.description + "</p >"
-					+	"</div>"
-					+  "</div>"
-					+"</Col>"
+						this.fetchdata(items[j])
 						
+							}
 					}
-					document.getElementById("insertbox").innerHTML = newHTML
-				}
 			})
 	}
 
-	
+	fetchdata(item){
+			var url = config.url + "user/" + item.sellername
+			console.log(item.sellername)
+			fetch(url)
+				.then(res => res.json())
+				.then(res => {
+					console.log(res.user)
+			var newHTML = "<Col xs={6} md={4}>"
+		+  "<div class='card' style='width:400px'>"
+		+	"<div class='card-body'>"
+		+	  "<h2 class='card-title'>" + item.title + "</h2>"
+		+	  "<h4 class='card-title'>Price: $" + item.price + "<br/>Seller: " + item.sellername + "<br/>Email: " + res.user.email + "<br/>Phone: " + res.user.phone 
+		+ "<br/>Trade Method: " + item.trademethod + "</h4>"
+		+	  "<p class='card-text'>Description: " + item.description + "</p >"
+		+	"</div>"
+		+  "</div>"
+		+"</Col>"
+		
+		document.getElementById("insertbox").innerHTML += newHTML
+				})
+	}
 	
 	componentWillUpdate(){
-		console.log("will update")
 		const history = createHistory()
 		const location = history.location
 		keyword = location.pathname.split(":")[1]
@@ -106,7 +111,6 @@ class SearchResult extends Component {
 	
 	render(){
 		
-		console.log("render")
 		//if (document.getElementById("insertbox").innerHTML !== null){
 		//console.log(document.getElementById("insertbox").innerHTML)}
 	  return (

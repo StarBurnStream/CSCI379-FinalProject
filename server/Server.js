@@ -152,8 +152,7 @@ app.get('/user', (req, res) => {
 })
 
 // get a user with username
-app.get('/user/:username/:clientHash', (req, res) => {
-	
+app.get('/user/:username', (req, res) => {
   res.json({
       result:'success',
       user: req.user
