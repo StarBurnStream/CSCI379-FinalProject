@@ -5,8 +5,8 @@ import NavBar from "./NavBar";
 import { Route } from 'react-router-dom';
 import createHistory from "history/createBrowserHistory"
 
-//const config = require('./config.json');
-const config = require('./configTest.json');
+const config = require('./config.json');
+//const config = require('./configTest.json');
 var keyword = ""
 class SearchResult extends Component {
 	

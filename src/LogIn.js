@@ -3,8 +3,8 @@ import { Button, FormGroup, FormControl, ControlLabel, Popover, ButtonToolbar, O
 import "./LogIn.css";
 import "./index.css"
 import sha256 from 'sha256';
-//const config = require('./config.json');
-const config = require('./configTest.json');
+const config = require('./config.json');
+//const config = require('./configTest.json');
 
 export default class Login extends Component {
   constructor(props, context) {

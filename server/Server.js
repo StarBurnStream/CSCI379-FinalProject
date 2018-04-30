@@ -7,9 +7,9 @@ app.use(cors())
 // create db connection
 const mongoose = require('mongoose')
 const fs = require('fs')
-//const config = JSON.parse(fs.readFileSync('config.json', 'UTF-8'))
+const config = JSON.parse(fs.readFileSync('config.json', 'UTF-8'))
 //const config = JSON.parse(fs.readFileSync('/Destiny/Abroad/Study/Sixth Semester/CSCI 379 Web/csci379-finalproject/server/configTest.json', 'UTF-8'))
-const config = JSON.parse(fs.readFileSync('/Users/HaleBopp/Desktop/Fullstack/CSCI379-FinalProject/server/configTest.json', 'UTF-8'))
+//const config = JSON.parse(fs.readFileSync('/Users/HaleBopp/Desktop/Fullstack/CSCI379-FinalProject/server/configTest.json', 'UTF-8'))
 
 mongoose.connect(config.dburl)
 var db = mongoose.connection

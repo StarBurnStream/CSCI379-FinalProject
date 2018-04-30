@@ -4,8 +4,8 @@ import {Tab, Col, Row, Panel, ControlLabel, HelpBlock, InputGroup, Radio} from '
 import NavBar from "./NavBar";
 import { Route } from 'react-router-dom';
 import sha256 from 'sha256';
-//const config = require('./config.json');
-const config = require('./configTest.json');
+const config = require('./config.json');
+//const config = require('./configTest.json');
 
 class AccountPage extends Component {
 	constructor(props) {

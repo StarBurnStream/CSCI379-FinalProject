@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
 import './App.css';
 import sha256 from 'sha256';
-//const config = require('./config.json');
-const config = require('./configTest.json');
+const config = require('./config.json');
+//const config = require('./configTest.json');
 
 class Servertest extends Component {
 
