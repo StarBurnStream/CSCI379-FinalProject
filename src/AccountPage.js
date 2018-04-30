@@ -16,6 +16,7 @@ class AccountPage extends Component {
 		this.handleClickUpdateGender = this.handleClickUpdateGender.bind(this);
 		this.handleClickUpdatePhone = this.handleClickUpdatePhone.bind(this);
 		this.handleClickUpdatePassword = this.handleClickUpdatePassword.bind(this);
+		this.handleClickUploadItem = this.handleClickUploadItem.bind(this);
 	}
 	function(){
 	  document.getElementById('.carousel-showmanymoveone .item').each(function(){
@@ -142,35 +143,73 @@ class AccountPage extends Component {
 		var newPassword1 = document.getElementById("newpassword1").value
 		var newPassword2 = document.getElementById("newpassword2").value
 		if (newPassword1 === newPassword2){
-			var currentPassword = document.getElementById("currentpassword").value
-			var clientHash = sha256(currentPassword)
-			var passwordHash = sha256(newPassword1)
-			var url = config.url + "updatepassword/" + this.state.user.username + "/" + clientHash
-			var data = { passwordhash : passwordHash}
-			fetch(url, {
-				method: "POST",
-				body: JSON.stringify(data),
-				headers: new Headers({'Content-Type': 'application/json'
-			})})
-			.then(result=>result.json())
-			.then(result=>{
-				if (result.result === 'success'){
-					var newUser = this.state.user
-					newUser.clientHash = passwordHash
-					this.setState({user:newUser}, ()=> {
-						this.props.handleUpdateState(this.state.user)
-					})
-				}
-				else{
-					console.log(result.result)
-				}
-			})
+			var url = config.url + "userlookup/" + this.state.user.username
+			fetch(url)
+			  .then(result=>result.json())
+			  .then(result=>{
+				var currentPassword = document.getElementById("currentpassword").value
+				var clientHash = sha256(currentPassword + result.r)
+				var passwordHash = sha256(newPassword1 + result.r)
+				var url = config.url + "updatepassword/" + this.state.user.username + "/" + clientHash
+				var data = { passwordhash : passwordHash}
+				fetch(url, {
+					method: "POST",
+					body: JSON.stringify(data),
+					headers: new Headers({'Content-Type': 'application/json'
+				})})
+				.then(result=>result.json())
+				.then(result=>{
+					if (result.result === 'success'){
+						console.log("Password Changed!")
+						var newUser = this.state.user
+						newUser.clientHash = passwordHash
+						this.setState({user:newUser}, ()=> {
+							this.props.handleUpdateState(this.state.user)
+						})
+					}
+					else{
+						console.log(result.result)
+					}
+				})
+			  })
 		}
 		else{
 			console.log("new password not match")
 		}
 	}
 
+	handleClickUploadItem(event){
+		var title = document.getElementById("title").value
+		var price = document.getElementById("price").value
+		var description = document.getElementById("description").value
+		var condition = document.getElementById("condition").value
+		var trademethod = document.getElementById("trademethod").value
+		var url = config.url + 'item/' + this.state.user.username + "/" + this.state.user.clientHash
+		var data = { 
+			title: title,
+			price: price,
+			description: description,
+			condition: condition,
+			trademethod: trademethod
+			}
+		fetch(url, {
+			method: "PUT",
+			body: JSON.stringify(data),
+			headers: new Headers({'Content-Type': 'application/json'
+		})})
+		.then(result=>result.json())
+		.then(result=>{
+			if (result.result === 'success'){
+				this.setState({user:result.user}, ()=> {
+					this.props.handleUpdateState(this.state.user)
+				})
+			}
+			else{
+				console.log(result.result)
+			}
+		})		
+	}
+	
 	render(){
 	  return (
 		<div>
@@ -312,12 +351,12 @@ class AccountPage extends Component {
 						<Panel.Title componentClass="h3">Item Information</Panel.Title>
 					</Panel.Heading>
 					<Panel.Body>
-						<FormGroup controlId="ItemName">
+						<FormGroup controlId="title">
 							<p>Name of Item</p>
 							<FormControl type="text" placeholder="Name" />
 						</FormGroup>{' '}
 
-						<FormGroup controlId="ItemPrice">
+						<FormGroup controlId="price">
 							<p>Item Price</p>
 							<InputGroup>
 							<InputGroup.Addon>$</InputGroup.Addon>
@@ -325,7 +364,7 @@ class AccountPage extends Component {
 							</InputGroup>
 						</FormGroup>{' '}
 
-						<FormGroup controlId="ItemQuality">
+						<FormGroup controlId="condition">
 							<p>Quality of Item</p>
 							<FormControl componentClass="select" placeholder="Quality">
 								<option defaultSelected value="New">New</option>
@@ -336,17 +375,17 @@ class AccountPage extends Component {
 							</FormControl>
 						</FormGroup>
 
-						<FormGroup controlId="ItemDescription">
+						<FormGroup controlId="description">
 							<p>Item Description</p>
 							<FormControl componentClass="textarea" placeholder="Description" />
 						</FormGroup>{' '}
 
-						<FormGroup controlId="ItemMethod">
+						<FormGroup controlId="trademethod">
 							<p>Trade Method</p>
 							<FormControl type="text" placeholder="e.g. Cash or Venmo" />
 						</FormGroup>{' '}
 
-						<Button onClick={this.handleUpload}>Upload</Button>
+						<Button onClick={this.handleClickUploadItem}>Upload</Button>
 					</Panel.Body>
 					</Panel>
 				  </Tab.Pane>

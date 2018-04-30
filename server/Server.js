@@ -13,7 +13,7 @@ const config = JSON.parse(fs.readFileSync('/Users/HaleBopp/Desktop/Fullstack/CSC
 
 mongoose.connect(config.dburl)
 var db = mongoose.connection
-
+var ObjectId = mongoose.Schema.Types.ObjectId
 // define the User schema
 var userSchema = mongoose.Schema({
   username: String,
@@ -21,11 +21,10 @@ var userSchema = mongoose.Schema({
   gender: String,
   photo: String,
   email: String,
-  bought: [String],
-  sold: [String],
-  pending: [String],
+  sold: [ObjectId],
+  selling: [ObjectId],
   phone: String,
-  watchlist: [String]
+  watchlist: [ObjectId]
 })
 // bind schema to the mongodb collection 'User'
 var User = mongoose.model('User', userSchema)
@@ -45,10 +44,11 @@ var UserSecret = mongoose.model('UserSecret', userSecretSchema)
 var itemSchema = mongoose.Schema({
   title: String,
   price: String,
+  photo: String,
   condition: String, // new or old
   situation: String, // pending or sold
-  sellinfo: {sellerid: Number, date: String},
-  buyinfo: [{buyerid: Number, date: String, state:String}],
+  sellername: String,
+  buyinfo: [{buyername: String, state:String}],
   description: String,
   trademethod: String
 })
@@ -256,7 +256,7 @@ app.post('/updateemail/:username/:clientHash', (req, res) => {
 			})
 		}
 		else{
-			consle.log("Access denied")
+			console.log("Access denied")
 			res.json({
 				result:"Not correctly logged in. Access denied."
 			})
@@ -277,7 +277,7 @@ app.post('/updatephone/:username/:clientHash', (req, res) => {
 			})
 		}
 		else{
-			consle.log("Access denied")
+			console.log("Access denied")
 			res.json({
 				result:"Not correctly logged in. Access denied."
 			})
@@ -298,7 +298,7 @@ app.post('/updategender/:username/:clientHash', (req, res) => {
 			})
 		}
 		else{
-			consle.log("Access denied")
+			console.log("Access denied")
 			res.json({
 				result:"Not correctly logged in. Access denied."
 			})
@@ -307,7 +307,6 @@ app.post('/updategender/:username/:clientHash', (req, res) => {
 })
 
 app.post('/updatepassword/:username/:clientHash', (req, res) => {
-
 	if (req.params.clientHash === req.userSecret.passwordhash){
 		console.log("Access permitted")
 		req.userSecret.passwordhash = req.body.passwordhash
@@ -317,9 +316,9 @@ app.post('/updatepassword/:username/:clientHash', (req, res) => {
 		})
 	}
 	else{
-		consle.log("Access denied")
+		console.log("Access denied")
 		res.json({
-			result:"Not correctly logged in. Access denied."
+			result:"Wrong Password."
 		})
 	}
 
@@ -342,18 +341,48 @@ app.get('/item/:itemid', (req, res) => {
     })
 })
 
-app.put('/item/:title', (req, res) => {
-  console.log("Create an item: ", req.params.title)
+app.put('/item/:username/:clientHash', (req, res) => {
+	
+  	UserSecret.find({username: req.params.username}, (err, userSecret)=>{
+		if (err | userSecret.length === 0){
+			res.json({result:"User not found."})
+		}
+		else{
+			var pwdhash = userSecret[0].passwordhash
+			if (req.params.clientHash === pwdhash){
+				console.log("Access permitted")
+				console.log("Create an item: ", req.body.title)
+				var item = Item({
+					title: req.body.title,
+					price: req.body.price,
+					condition: req.body.condition,
+					description: req.body.description,
+					trademethod: req.body.trademethod,
+					sellername: req.params.username,
+					situation: "selling"
+					})
+				item.save()	
+				
+				User.find({username: req.params.username}, (err, users)=>{
+					var user = users[0]
+					user.selling.push(item._id)
+					user.save()
+				})
+				
+				res.json({
+					result: 'success',
+					item: item
+				})
+			}
+			else{
+				consolele.log("Access denied")
+				res.json({
+					result:"Not correctly logged in. Access denied."
+				})
+			}
+		}
+	})
 
-  var item = Item({
-      title: req.params.title
-      })
-  item.save()
-
-  res.json({   // echo the order back (which now has an order number)
-    result: 'success',
-    item: item
-  })
 })
 
 app.delete('/item/:itemid', (req, res) => {
