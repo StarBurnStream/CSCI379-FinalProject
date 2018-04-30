@@ -6,9 +6,18 @@ class NavBar extends Component {
 
 	constructor(props) {
     super(props);
-    this.state = {user: "username in NavBar"}
+    this.state = {user: "username in NavBar", value:""}
+		this.handleChange=this.handleChange.bind(this);
+		this.handleSearch=this.handleSearch.bind(this);
   }
 
+	handleChange(e){
+		this.setState({ value: e.target.value });
+	}
+
+	handleSearch(e){
+			this.props.handleKeyword(this.state.value)
+	}
 
 	render(){
 	  return (
@@ -60,9 +69,13 @@ class NavBar extends Component {
 			  <Navbar.Collapse>
 			    <Navbar.Form pullLeft>
 			      <FormGroup>
-			        <FormControl type="text" placeholder="Search" />
+			        <FormControl onChange={this.handleChange} value={this.state.value} type="text" placeholder="Search" />
 			      </FormGroup>{' '}
-			      <Button type="submit">Search</Button>
+			      <Button onClick={this.handleSearch} type="submit">
+							<Link to={{pathname: '/searchresult'	}} className='searchLink'>
+									Search
+							</Link>
+						</Button>
 			    </Navbar.Form>
 			  </Navbar.Collapse>
 			</Navbar>

@@ -11,7 +11,8 @@ class SearchResult extends Component {
 
 		this.state = {
 			smShow: false,
-			lgShow: false
+			lgShow: false,
+			keyword:this.props.keyword
 		};
 		this.handleClose = this.handleClose.bind(this)
 	}
@@ -21,7 +22,6 @@ class SearchResult extends Component {
 	}
 
 	render(){
-
 	  return (
 		<div>
 			<Grid>

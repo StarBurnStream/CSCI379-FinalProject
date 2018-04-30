@@ -13,19 +13,25 @@ class App extends Component {
 
   constructor(props) {
     super(props);
-    this.state = {user:{username:"null",clienthash:"null"}}
+    this.state = {user:{username:"null",clienthash:"null"},keyword:"null"}
     this.handleUpdateState = this.handleUpdateState.bind(this);
+    this.handleKeyword=this.handleKeyword.bind(this);
   }
 
   handleUpdateState(aUser) {
     this.setState({user: aUser});
   }
 
+  handleKeyword(newKeyword){
+    this.setState({keyword: newKeyword});
+
+  }
+
   render() {
     return (
       <div>
 
-        <NavBar />
+        <NavBar handleKeyword={this.handleKeyword}/>
 
         <Route exact path='/' render = {() => (
             <LogIn handleUpdateState={this.handleUpdateState}/>
@@ -36,7 +42,7 @@ class App extends Component {
         )}/>
 
         <Route exact path='/searchresult' render = {() => (
-            <SearchResult />
+            <SearchResult keyword={this.state.keyword}/>
         )}/>
 
         <Route exact path='/itempage' render = {() => (
@@ -48,7 +54,7 @@ class App extends Component {
         )}/>
 
 		<Route exact path='/servertest' render = {() => (
-            <Servertest />
+            <Servertest user={this.state.user} handleUpdateState={this.handleUpdateState} keyword={this.state.keyword}/>
         )}/>
       </div>
 
