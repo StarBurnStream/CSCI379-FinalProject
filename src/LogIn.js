@@ -9,7 +9,7 @@ const config = require('./configTest.json');
 export default class Login extends Component {
   constructor(props, context) {
     super(props, context);
-    this.state = {username: "", userid: "", email: "", phonenumber: "", r:null, password: "", signupshow: false, signinshow:false}
+    this.state = {username: "", userid: "", email: "", phonenumber: "", r:null, password: "", show:false, signupshow: false, signinshow:false}
     this.handleClickSignup = this.handleClickSignup.bind(this);
     this.handleClickSignin = this.handleClickSignin.bind(this);
   }
@@ -35,10 +35,10 @@ export default class Login extends Component {
       .then(result=>{
         if (result.result === "success"){
           console.log("Username already exist")
-          this.setState({target: document.getElementById("signupButton"), show: true});
+          this.setState({target: document.getElementById("signupButton"), signupshow: true, signinshow: false});
         }
         else{
-          this.setState({target: document.getElementById("signupButton"), show: false});
+          this.setState({target: document.getElementById("signupButton"), signupshow: false, signinshow: false});
           var ranNum =  Math.floor(Math.random()*2**32)
           this.setState({
             username: document.getElementById("username").value,
@@ -66,7 +66,7 @@ export default class Login extends Component {
       .then(result=>{
         console.log(result)
         if (result.result === "success"){
-          this.setState({target: document.getElementById("signinButton"), show:false});
+          this.setState({target: document.getElementById("signinButton"), signupshow: false, signinshow:false});
             var clientHash = sha256(document.getElementById("password").value + result.r)
             var url = config.url + "signin/" + document.getElementById("username").value + "/" + clientHash
             fetch(url)
@@ -87,13 +87,13 @@ export default class Login extends Component {
                 }
                 else{
                   console.log('Wrong password!')
-                  this.setState({target: document.getElementById("signinButton"), show: true});
+                  this.setState({target: document.getElementById("signinButton"), signupshow:false, signinshow: true});
                 }
               })
         }
         else{
           console.log("user not found")
-          this.setState({target: document.getElementById("signinButton"), show: true});
+          this.setState({target: document.getElementById("signinButton"), signupshow: false, signinshow: true});
         }
       })
   }
@@ -125,7 +125,7 @@ export default class Login extends Component {
               Sign Up
             </Button>
             <Overlay
-              show={this.state.show}
+              show={this.state.signupshow}
               target={this.state.target}
               placement="right"
               container={this}
@@ -142,7 +142,7 @@ export default class Login extends Component {
               Login
             </Button>
             <Overlay
-              show={this.state.show}
+              show={this.state.signinshow}
               target={this.state.target}
               placement="right"
               container={this}
