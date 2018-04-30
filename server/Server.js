@@ -152,7 +152,8 @@ app.get('/user', (req, res) => {
 })
 
 // get a user with username
-app.get('/user/:username', (req, res) => {
+app.get('/user/:username/:clientHash', (req, res) => {
+	
   res.json({
       result:'success',
       user: req.user
@@ -161,7 +162,7 @@ app.get('/user/:username', (req, res) => {
 
 // get a user's random r
 app.get('/userlookup/:username', (req, res) => {
-
+	
   res.json({
       result:'success',
       r:req.userSecret.r

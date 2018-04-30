@@ -17,6 +17,7 @@ class AccountPage extends Component {
 		this.handleClickUpdatePhone = this.handleClickUpdatePhone.bind(this);
 		this.handleClickUpdatePassword = this.handleClickUpdatePassword.bind(this);
 		this.handleClickUploadItem = this.handleClickUploadItem.bind(this);
+		this.fetchInfo = this.fetchInfo.bind(this);
 	}
 	function(){
 	  document.getElementById('.carousel-showmanymoveone .item').each(function(){
@@ -212,6 +213,24 @@ class AccountPage extends Component {
 		})		
 	}
 	
+	fetchInfo(event){
+		var url = config.url + 'signin/' + this.state.user.username + '/' + this.state.user.clientHash
+		fetch(url)
+			.then(result=>result.json())
+			.then(result=> {
+				if (result.result === 'success'){
+					result.user.clientHash = this.state.user.clientHash
+					this.setState({user:result.user}, ()=> {
+						this.props.handleUpdateState(this.state.user)
+					})
+				}
+				else{
+					console.log(result.result)
+				}
+			})
+
+	}
+	
 	render(){
 	  return (
 		<div>
@@ -234,36 +253,36 @@ class AccountPage extends Component {
               </Col>
               <Col sm={8}>
                 <Tab.Content animation>
-                  <Tab.Pane eventKey="Account Info">
+                  <Tab.Pane eventKey="Account Info" onClick = {this.fetchInfo}>
                     <Panel bsStyle="primary">
                     <Panel.Heading>
                       <Panel.Title componentClass="h3">Screen Name</Panel.Title>
                     </Panel.Heading>
-                    <Panel.Body>Panel content</Panel.Body>
+                    <Panel.Body>{this.state.user.username}</Panel.Body>
                     </Panel>
                     <Panel bsStyle="success">
                     <Panel.Heading>
                       <Panel.Title componentClass="h3">Real Name</Panel.Title>
                     </Panel.Heading>
-                    <Panel.Body>Panel content</Panel.Body>
+                    <Panel.Body>{this.state.user.name}</Panel.Body>
                     </Panel>
                     <Panel bsStyle="info">
                     <Panel.Heading>
                       <Panel.Title componentClass="h3">Gender</Panel.Title>
                     </Panel.Heading>
-                    <Panel.Body>Panel content</Panel.Body>
+                    <Panel.Body>{this.state.user.gender}</Panel.Body>
                     </Panel>
                     <Panel bsStyle="warning">
                     <Panel.Heading>
-                      <Panel.Title componentClass="h3">Photo</Panel.Title>
+                      <Panel.Title componentClass="h3">Phone</Panel.Title>
                     </Panel.Heading>
-                    <Panel.Body>Panel content</Panel.Body>
+                    <Panel.Body>{this.state.user.phone}</Panel.Body>
                     </Panel>
                     <Panel bsStyle="danger">
                     <Panel.Heading>
                       <Panel.Title componentClass="h3">Email</Panel.Title>
                     </Panel.Heading>
-                    <Panel.Body>Panel content</Panel.Body>
+                    <Panel.Body>{this.state.user.email}</Panel.Body>
                     </Panel>
                   </Tab.Pane>
 

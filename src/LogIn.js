@@ -74,16 +74,12 @@ export default class Login extends Component {
               .then(result=>{
                 if (result.result === 'success'){
                   console.log('Login Successfully!')
-				  url = config.url + "user/" + document.getElementById("username").value
-                  fetch(url)
-					.then(result=>result.json())
-					.then(result=>{
-						var newUser = result.user
+				  var newUser = result.user
 						newUser.clientHash = clientHash
 						this.setState({user:newUser}, ()=> {
 							this.props.handleUpdateState(this.state.user)
 						})
-					})
+						
                 }
                 else{
                   console.log('Wrong password!')
