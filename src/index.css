@@ -4,6 +4,16 @@ body {
   font-family: sans-serif;
 }
 
+#mainpagemid{
+	width:60%;
+	margin-left:auto;
+	margin-right:auto;
+}
+
+#mainpageleft{
+	width:20%;
+}
+
 .links{
 	color: white;
 }

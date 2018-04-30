@@ -20,9 +20,9 @@ class SearchResult extends Component {
 			user: this.props.user
 		};
 		this.handleClose = this.handleClose.bind(this)
-		this.handleResult = this.handleResult.bind(this)
+		//this.handleResult = this.handleResult.bind(this)
 	}
-
+/*
 	handleResult = event => {
 		var url = config.url + "itemsearch/" + keyword
 		fetch(url)
@@ -55,11 +55,11 @@ class SearchResult extends Component {
 				}
 			})
 	}
-	
+	*/
 	handleClose = event => {
 		this.setState({lgShow: false});
 	}
-/*
+
 	componentDidUpdate(){
 		console.log("update")
 		var url = config.url + "itemsearch/" + keyword
@@ -79,11 +79,11 @@ class SearchResult extends Component {
 						var item = items[j]
 						newHTML += "<Col xs={6} md={4}>"
 					+  "<div class='card' style='width:400px'>"
-					+	"< img class='card-img-top' src='unicorn.jpg' alt='Card image' style='width:10%'>"
 					+	"<div class='card-body'>"
-					+	  "<h4 class='card-title'>John Doe</h4>"
-					+	  "<p class='card-text'>Some example text some example text. John Doe is an architect and engineer</p >"
-					+	  "< a href=' ' class='btn btn-primary'>See Profile</ a>"
+					+	  "<h2 class='card-title'>" + item.title + "</h2>"
+					+	  "<h4 class='card-title'>Price: $" + item.price + "<br/>Seller: " + item.sellername + "<br/>Email: " + this.state.user.email + "<br/>Phone: " + this.state.user.phone 
+					+ "<br/>Trade Method: " + item.trademethod + "</h4>"
+					+	  "<p class='card-text'>Description: " + item.description + "</p >"
 					+	"</div>"
 					+  "</div>"
 					+"</Col>"
@@ -93,7 +93,7 @@ class SearchResult extends Component {
 				}
 			})
 	}
-	*/
+
 	
 	
 	componentWillUpdate(){
@@ -111,7 +111,6 @@ class SearchResult extends Component {
 		//console.log(document.getElementById("insertbox").innerHTML)}
 	  return (
 		<div>
-			<Button onClick={this.handleResult}>Show Result</Button>
 			<Grid>
 				<Row id = "insertbox">
 					Welcome to Search Page.

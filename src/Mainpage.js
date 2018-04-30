@@ -33,34 +33,35 @@ class Mainpage extends Component {
 
 	render(){
 	  return (
-		<div>
+	  <div>
+		<div id= "mainpagemid">
 
 			<Carousel>
 			  <Carousel.Item>
 			    <img width={900} height={500} alt="900x500" src="unicorn.jpg" />
 			    <Carousel.Caption>
-			      <h3>First slide label</h3>
-			      <p>Nulla vitae elit libero, a pharetra augue mollis interdum.</p>
+			      <h3>Gundam</h3>
+			      <p>Unicorn</p>
 			    </Carousel.Caption>
 			  </Carousel.Item>
 
 				<Carousel.Item>
-			    <img width={900} height={500} alt="900x500" src="unicorn.jpg" />
+			    <img width={900} height={500} alt="900x500" src="keyboard.jpg" />
 			    <Carousel.Caption>
-			      <h3>First slide label</h3>
-			      <p>Nulla vitae elit libero, a pharetra augue mollis interdum.</p>
+			      <h3>Keyboard</h3>
+			      <p>Keyboard in dana</p>
 			    </Carousel.Caption>
 			  </Carousel.Item>
 
 				<Carousel.Item>
-			    <img width={900} height={500} alt="900x500" src="unicorn.jpg" />
+			    <img width={900} height={500} alt="900x500" src="handwriting.jpg" />
 			    <Carousel.Caption>
-			      <h3>First slide label</h3>
-			      <p>Nulla vitae elit libero, a pharetra augue mollis interdum.</p>
+			      <h3>Handwriting</h3>
+			      <p>From Japan</p>
 			    </Carousel.Caption>
 			  </Carousel.Item>
 			</Carousel>;
-
+			</div>
     </div>
 	  )
 	}
