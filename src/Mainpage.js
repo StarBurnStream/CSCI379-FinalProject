@@ -9,7 +9,7 @@ class Mainpage extends Component {
 		super(props);
 		this.state = {user: this.props.user}
 	}
-	
+
 	function(){
 	  document.getElementById('.carousel-showmanymoveone .item').each(function(){
 	    var itemToClone = document.getElementById(this);

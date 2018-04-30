@@ -17,6 +17,7 @@ class NavBar extends Component {
 
 	handleSearch(e){
 			this.props.handleKeyword(this.state.value)
+			this.forceUpdate()
 	}
 
 	render(){
@@ -72,9 +73,9 @@ class NavBar extends Component {
 			        <FormControl onChange={this.handleChange} value={this.state.value} type="text" placeholder="Search" />
 			      </FormGroup>{' '}
 			      <Button onClick={this.handleSearch} type="submit">
-							<Link to={{pathname: '/searchresult'	}} className='searchLink'>
+								<Link to={{pathname:'/searchresult:'+this.state.value}} className='searchLink' >
 									Search
-							</Link>
+								</Link>
 						</Button>
 			    </Navbar.Form>
 			  </Navbar.Collapse>

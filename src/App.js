@@ -9,6 +9,11 @@ import Servertest from './Servertest';
 import NavBar from './NavBar';
 import { Route } from 'react-router-dom';
 
+import createHistory from "history/createBrowserHistory"
+
+const history = createHistory()
+const location = history.location
+
 class App extends Component {
 
   constructor(props) {
@@ -23,8 +28,7 @@ class App extends Component {
   }
 
   handleKeyword(newKeyword){
-    this.setState({keyword: newKeyword});
-
+    this.setState({keyword: newKeyword},()=>{console.log(this.state.keyword)});
   }
 
   render() {
@@ -41,19 +45,15 @@ class App extends Component {
             <Mainpage user={this.state.user}/>
         )}/>
 
-        <Route exact path='/searchresult' render = {() => (
-            <SearchResult keyword={this.state.keyword}/>
-        )}/>
-
-        <Route exact path='/itempage' render = {() => (
-            <ItemPage />
+        <Route exact path={'/searchresult:' + this.state.keyword} render = {() => (
+            <SearchResult user={this.state.user} keyword={this.state.keyword}/>
         )}/>
 
         <Route exact path='/accountpage' render = {() => (
             <AccountPage user={this.state.user} handleUpdateState={this.handleUpdateState}/>
         )}/>
 
-		<Route exact path='/servertest' render = {() => (
+		      <Route exact path='/servertest' render = {() => (
             <Servertest user={this.state.user} handleUpdateState={this.handleUpdateState} keyword={this.state.keyword}/>
         )}/>
       </div>

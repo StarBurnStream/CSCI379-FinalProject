@@ -3,6 +3,7 @@ import { Navbar, Nav, NavItem, MenuItem, NavDropdown, Button, FormGroup, FormCon
 import {Col, Row, Thumbnail, Grid, Modal} from 'react-bootstrap';
 import NavBar from "./NavBar";
 import { Route } from 'react-router-dom';
+import createHistory from "history/createBrowserHistory"
 
 class SearchResult extends Component {
 
@@ -12,7 +13,8 @@ class SearchResult extends Component {
 		this.state = {
 			smShow: false,
 			lgShow: false,
-			keyword:this.props.keyword
+			keyword:this.props.keyword,
+			firsttime: true
 		};
 		this.handleClose = this.handleClose.bind(this)
 	}
@@ -22,6 +24,10 @@ class SearchResult extends Component {
 	}
 
 	render(){
+		const history = createHistory()
+		const location = history.location
+		var x = location.pathname.split(":")[1]
+		console.log(x)
 	  return (
 		<div>
 			<Grid>
