@@ -1,73 +1,120 @@
 import React, { Component } from 'react';
 import { Navbar, Nav, NavItem, MenuItem, NavDropdown, Button, FormGroup, FormControl, Carousel, Checkbox, Well } from 'react-bootstrap';
-import {Col, Row, Thumbnail, Grid, Modal} from 'react-bootstrap';
+import {Col, Row, Thumbnail, Grid, Modal, Jumbotron} from 'react-bootstrap';
 import NavBar from "./NavBar";
 import { Route } from 'react-router-dom';
 import createHistory from "history/createBrowserHistory"
 
+//const config = require('./config.json');
+const config = require('./configTest.json');
+var keyword = ""
 class SearchResult extends Component {
-
+	
 	constructor(props, context) {
 		super(props, context);
 
 		this.state = {
 			smShow: false,
 			lgShow: false,
-			keyword:this.props.keyword,
-			firsttime: true
+			keyword:"",
+			user: this.props.user
 		};
 		this.handleClose = this.handleClose.bind(this)
+		this.handleResult = this.handleResult.bind(this)
 	}
 
+	handleResult = event => {
+		var url = config.url + "itemsearch/" + keyword
+		fetch(url)
+			.then(result => result.json())
+			.then(result => {
+				console.log(result)
+				if (result.length === 0) {
+					var html = "<p>No item found!</p>"
+					document.getElementById("insertbox").innerHTML = html
+				}
+				else{
+					document.getElementById("insertbox").innerHTML = ""
+					var items = result
+					var newHTML = ""
+					for ( var j=0;j<items.length;j++){
+						var item = items[j]
+						newHTML += "<Col xs={6} md={4}>"
+					+  "<div class='card' style='width:400px'>"
+					+	"< img class='card-img-top' src='unicorn.jpg' alt='Card image' style='width:10%'>"
+					+	"<div class='card-body'>"
+					+	  "<h4 class='card-title'>John Doe</h4>"
+					+	  "<p class='card-text'>Some example text some example text. John Doe is an architect and engineer</p >"
+					+	  "< a href=' ' class='btn btn-primary'>See Profile</ a>"
+					+	"</div>"
+					+  "</div>"
+					+"</Col>"
+						
+					}
+					document.getElementById("insertbox").innerHTML = newHTML
+				}
+			})
+	}
+	
 	handleClose = event => {
 		this.setState({lgShow: false});
 	}
-
-	render(){
+/*
+	componentDidUpdate(){
+		console.log("update")
+		var url = config.url + "itemsearch/" + keyword
+		fetch(url)
+			.then(result => result.json())
+			.then(result => {
+				console.log(result)
+				if (result.length === 0) {
+					var html = "<p>No item found!</p>"
+					document.getElementById("insertbox").innerHTML = html
+				}
+				else{
+					document.getElementById("insertbox").innerHTML = ""
+					var items = result
+					var newHTML = ""
+					for ( var j=0;j<items.length;j++){
+						var item = items[j]
+						newHTML += "<Col xs={6} md={4}>"
+					+  "<div class='card' style='width:400px'>"
+					+	"< img class='card-img-top' src='unicorn.jpg' alt='Card image' style='width:10%'>"
+					+	"<div class='card-body'>"
+					+	  "<h4 class='card-title'>John Doe</h4>"
+					+	  "<p class='card-text'>Some example text some example text. John Doe is an architect and engineer</p >"
+					+	  "< a href=' ' class='btn btn-primary'>See Profile</ a>"
+					+	"</div>"
+					+  "</div>"
+					+"</Col>"
+						
+					}
+					document.getElementById("insertbox").innerHTML = newHTML
+				}
+			})
+	}
+	*/
+	
+	
+	componentWillUpdate(){
+		console.log("will update")
 		const history = createHistory()
 		const location = history.location
-		var x = location.pathname.split(":")[1]
-		console.log(x)
+		keyword = location.pathname.split(":")[1]
+	
+	}
+	
+	render(){
+		
+		console.log("render")
+		//if (document.getElementById("insertbox").innerHTML !== null){
+		//console.log(document.getElementById("insertbox").innerHTML)}
 	  return (
 		<div>
+			<Button onClick={this.handleResult}>Show Result</Button>
 			<Grid>
-				<Row>
-					<Col xs={6} md={4}>
-						<Thumbnail src="unicorn.jpg" alt="242x200">
-							<h3>Item Name</h3>
-							<p>Price</p>
-							<p>
-							<Button bsStyle="primary" onClick={() => this.setState({ lgShow: true })}>Detail</Button>
-
-							<Modal show={this.state.lgShow} {...this.props} bsSize="large" aria-labelledby="contained-modal-title-lg">
-								<Modal.Header closeButton>
-									<Modal.Title id="contained-modal-title-lg"><h1>Item Title</h1></Modal.Title>
-								</Modal.Header>
-								<Modal.Body>
-									<h2>Item Price</h2>
-									<h3>
-										Seller
-										<br/>
-										Contact Info
-										<br/>
-										Trade Method
-										<br/>
-									</h3>
-									<h4>Item Description</h4>
-									<p>
-										alkfjdslkfaldkjfla
-										<br/>
-										fjosjadfofjdoapfjodjfo
-									</p>
-								</Modal.Body>
-								<Modal.Footer>
-									<Button onClick={this.handleClose}>Close</Button>
-								</Modal.Footer>
-							</Modal>
-
-							</p>
-						</Thumbnail>
-					</Col>
+				<Row id = "insertbox">
+					Welcome to Search Page.
 				</Row>
 			</Grid>
 		</div>

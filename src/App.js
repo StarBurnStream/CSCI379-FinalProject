@@ -28,7 +28,7 @@ class App extends Component {
   }
 
   handleKeyword(newKeyword){
-    this.setState({keyword: newKeyword},()=>{console.log(this.state.keyword)});
+    this.setState({keyword: newKeyword});
   }
 
   render() {
@@ -46,7 +46,7 @@ class App extends Component {
         )}/>
 
         <Route exact path={'/searchresult:' + this.state.keyword} render = {() => (
-            <SearchResult user={this.state.user} keyword={this.state.keyword}/>
+            <SearchResult user={this.state.user} andleUpdateState={this.handleUpdateState} keyword={this.state.keyword}/>
         )}/>
 
         <Route exact path='/accountpage' render = {() => (
